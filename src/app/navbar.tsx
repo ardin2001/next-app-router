@@ -21,7 +21,6 @@ const Navbar = () => {
                 <Link href="/setting"><li className={pathname === "/setting" ? "text-red-500" : ""}>Setting</li></Link>
                 <Link href="/setting/profile"><li className={pathname === "/setting/profile" ? "text-red-500" : ""}>Profile</li></Link>
             </ul>
-            <button onClick={() => updateSorting('asc')}>SearchParam</button>
         </header>
     );
 };

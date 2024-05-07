@@ -1,16 +1,10 @@
 import Link from "next/link";
-import { usePathname, redirect, useSearchParams, } from "next/navigation";
+import { usePathname, redirect } from "next/navigation";
 const Navbar = () => {
     const pathname = usePathname()
-    const searchParams = useSearchParams()
     const Redirect = async () => {
         const response = await fetch('https://fakestoreapi.com/products')
         redirect("/")
-    }
-    const updateSorting = (sortOrder: string) => {
-        const params = new URLSearchParams(searchParams.toString())
-        params.set('sort', sortOrder)
-        window.history.pushState(null, '', `?${params.toString()}`)
     }
     return (
         <header className="flex justify-between px-10 py-3 bg-slate-600 text-white">

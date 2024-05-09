@@ -1,10 +1,8 @@
 import Link from "next/link";
-import { usePathname, redirect } from "next/navigation";
+import { usePathname, } from "next/navigation";
 const Navbar = () => {
     const pathname = usePathname()
     const Redirect = async () => {
-        const response = await fetch('https://fakestoreapi.com/products')
-        redirect("/")
     }
     return (
         <header className="flex justify-between px-10 py-3 bg-slate-600 text-white">

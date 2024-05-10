@@ -1,6 +1,6 @@
 import Image from "next/image"
 export default async function Products({params}:{params:{id:string}}) {
-    const response = await fetch(`https://app-router-nu.vercel.app/api/products?id=${params.id}`,{
+    const response = await fetch(`${process.env.HOSTNAME_P1}/api/products?id=${params.id}`,{
         cache :'no-store'
     })
     const {data} = await response.json()

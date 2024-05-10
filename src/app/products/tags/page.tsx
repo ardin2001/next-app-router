@@ -2,7 +2,7 @@ import Image from "next/image"
 
 async function fetchData() {
     // default : cache : 'force-cache'
-    const response = await fetch(`https://app-router-nu.vercel.app/api/products`,{
+    const response = await fetch(`${process.env.HOSTNAME}/api/products`,{
         next: {
             tags: ['products']
         }

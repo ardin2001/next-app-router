@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     const secret = url.searchParams.get('secret');
     
     if(secret == '123' && tags){
-        // revalidateTag(tags);
+        revalidateTag(tags);
         return NextResponse.json({ status: true,message: "Revalidate success",url });
     }
     return NextResponse.json({ status: false,message: "Revalidate failed",url });

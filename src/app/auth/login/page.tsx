@@ -4,7 +4,7 @@ export default function Login() {
     const router = useRouter()
     const HandlerLogin = async (event: any) => {
         event.preventDefault();
-        const response = await fetch('http://localhost:3000/api/auth/login', {
+        const response = await fetch(`${process.env.HOSTNAME}/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -32,7 +32,7 @@ export function middleware1(request: NextRequest) {
 
 export function middleware(req: NextRequest, event: NextFetchEvent) {
   event.waitUntil(
-    fetch('http://localhost:3000/api/products', {
+    fetch(`${process.env.HOSTNAME}/api/products`, {
       method: 'GET',
     }).then((res) => console.log('response :',res)),
   )

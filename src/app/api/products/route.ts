@@ -1,5 +1,5 @@
 import { NextResponse,NextRequest } from "next/server";
-
+import { GetAll,GetBy } from "@/app/lib/firebase/FetchData";
 const products = [
   {
     id: 1,
@@ -34,16 +34,19 @@ const products = [
       "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/e0f6d858-f0fe-431e-96ae-cccd2eb744ae/air-force-1-07-lv8-shoes-Smph4G.png",
   },
 ];
-export function GET(req:NextRequest) {
+export async function GET(req:NextRequest) {
   const id = req.nextUrl.searchParams.get('id')
-  let newProducts = products.filter((data:any) => data?.id == id)
-  if(newProducts.length == 0){
-    newProducts = products
+  let data:any
+  if(id){
+    data = await GetBy('products',id)
+  }else{
+    data = await GetAll('products')
   }
+  
   return NextResponse.json({
     status: true,
     message: "Get data products",
-    data: newProducts,
+    data
   });
 }
 

@@ -1,5 +1,5 @@
 export default async function Products({params}:{params:{id:string}}) {
-    const response = await fetch(`${process.env.HOSTNAME}/api/products?id=${params.id}`,{
+    const response = await fetch(`${process.env.HOSTNAME_P1}/api/products?id=${params.id}`,{
         cache :'no-store'
     })
     const {data} = await response.json()

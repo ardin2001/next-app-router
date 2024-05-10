@@ -1,10 +1,8 @@
 'use client'
-import { useRouter } from "next/navigation";
 export default function Login() {
-    const router = useRouter()
     const HandlerLogin = async (event: any) => {
         event.preventDefault();
-        const response = await fetch(`${process.env.HOSTNAME}/api/auth/login`, {
+        const response = await fetch(`${process.env.HOSTNAME_P1}/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -14,7 +12,6 @@ export default function Login() {
                 password: event.target.password.value
             })
         })
-        console.log(response)
     };
     return (
         <div className="my-5">

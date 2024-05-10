@@ -3,7 +3,7 @@ import Link from "next/link"
 async function fetchData() {
     await fetch('https://fakestoreapi.com/products', {cache: 'no-store'})
     // const response = await fetch('http://localhost:3000/api/products' : test with wrong url fetch
-    const response = await fetch('http://localhost:3000/api/products', {
+    const response = await fetch(`${process.env.HOSTNAME}/api/products`, {
         cache: 'no-store'
     })
     const { data } = await response.json()

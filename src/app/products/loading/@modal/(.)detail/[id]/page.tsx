@@ -1,6 +1,6 @@
 import Modal from '@/app/components/modal'
 export default async function Detail({params}:{params:{id:string}}) {
-    const response = await fetch('http://localhost:3000/api/products?id=' + params.id, {
+    const response = await fetch(`${process.env.HOSTNAME}/api/products?id=${params.id}`, {
         cache: 'no-store'
     })
     const { data } = await response.json()

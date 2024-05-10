@@ -1,4 +1,3 @@
-import Products from "@/app/products/page";
 import { NextResponse,NextRequest } from "next/server";
 
 const products = [

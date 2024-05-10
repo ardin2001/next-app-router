@@ -3,7 +3,7 @@ import Image from "next/image"
 async function fetchData() {
     // default : cache : 'force-cache'
     const response = await fetch(`${process.env.HOSTNAME_P1}/api/products`,{
-        cache: 'no-cache'
+        cache: 'no-store'
     })
     const {data} = await response.json()
     return data

@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { usePathname, } from "next/navigation";
+import { signIn, signOut,useSession } from "next-auth/react";
 const Navbar = () => {
     const pathname = usePathname()
+    const sessionUser = useSession()
     
     return (
         <header className="flex justify-between px-10 py-3 bg-slate-600 text-white">
@@ -14,7 +16,11 @@ const Navbar = () => {
                     <Link href="/setting/profile"><li className={pathname === "/setting/profile" ? "text-red-500" : ""}>Profile</li></Link>
                 </ul>
             </div>
-            <button className="bg-red-500 px-2 py-1 text-white">Logout</button>
+            {sessionUser.status === "authenticated" ? (
+                <button onClick={() => signOut()} className="bg-red-500 px-2 py-1 text-white">Logout</button>
+            ) : (
+                <button onClick={() => signIn()} className="bg-green-500 px-2 py-1 text-white">Login</button>
+            )}
         </header>
     );
 };

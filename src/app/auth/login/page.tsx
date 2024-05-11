@@ -1,17 +1,54 @@
 'use client'
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function Login() {
+    const router = useRouter();
+    // const [message,setMesssage] = useState('')
+    const message = (statusCode: boolean, data: string) => {
+        if (statusCode) {
+            toast.success(data, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                theme: "colored",
+                transition: Bounce,
+            })
+        }else{
+            toast.error(data, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                theme: "colored",
+                transition: Bounce,
+                });
+        }
+    }
+
     const HandlerLogin = async (event: any) => {
         event.preventDefault();
-        const response = await fetch(`${process.env.HOSTNAME_P1}/api/auth/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: event.target.email.value,
-                password: event.target.password.value
-            })
-        })
+
+        const response: any = await signIn("credentials", {
+            email: event.target.email.value,
+            password: event.target.password.value,
+            redirect: false,
+            callbackUrl: "/products"
+        });
+
+        if (response.ok) {
+            router.push('/products')
+            message(true, "Login success")
+        } else {
+            message(false, "Wrong email or password")
+        }
+
     };
     return (
         <div className="my-5">
@@ -23,6 +60,7 @@ export default function Login() {
                 <input type="password" id="password" />
                 <button type="submit" className="bg-green-500 py-1 text-white">Login</button>
             </form>
+            <ToastContainer />
         </div>
     );
 }

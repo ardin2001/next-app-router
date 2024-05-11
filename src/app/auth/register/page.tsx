@@ -1,13 +1,11 @@
 'use client'
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useState } from 'react';
 export default function Login() {
     const router = useRouter();
     const [loading,setLoading] = useState(true)
-    // const [message,setMesssage] = useState('')
     const message = (statusCode: boolean, data: string) => {
         if (statusCode) {
             toast.success(data, {
@@ -34,33 +32,41 @@ export default function Login() {
         }
     }
 
-    const HandlerLogin = async (event: any) => {
+    const HandlerRegister = async (event: any) => {
         event.preventDefault();
+        setLoading(false)
+        const response: any = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: event.target.email.value,
+                password: event.target.password.value
+            })
+        })
+        const json = await response.json()
 
-        const response: any = await signIn("credentials", {
-            email: event.target.email.value,
-            password: event.target.password.value,
-            redirect: false,
-            callbackUrl: "/products"
-        });
-
-        if (response.ok) {
+        if (json.status) {
             message(true, "Login success")
-            router.push('/products')
+            setTimeout(() => {
+                router.push('/auth/login')
+            }, 1000);
         } else {
             message(false, "Wrong email or password")
         }
+        setLoading(true)
 
     };
     return (
         <div className="my-5">
-            <h3 className="text-center text-3xl text-slate-700 font-bold pb-5">Login Page</h3>
-            <form onSubmit={HandlerLogin} className="grid w-1/3 m-0-auto bg-slate-500 p-5 m-auto gap-3">
+            <h3 className="text-center text-3xl text-slate-700 font-bold pb-5">Register Page</h3>
+            <form onSubmit={HandlerRegister} className="grid w-1/3 m-0-auto bg-slate-500 p-5 m-auto gap-3">
                 <label className="text-white" htmlFor="email">Email</label>
                 <input type="text" id="email" />
                 <label className="text-white" htmlFor="password">Password</label>
                 <input type="password" id="password" />
-                <button type="submit" className="bg-green-500 py-1 text-white">{loading ? 'Login' : 'Loading...'}</button>
+                <button type="submit" className="bg-green-500 py-1 text-white">{loading ? 'Register' : 'Loading...'}</button>
             </form>
             <ToastContainer />
         </div>

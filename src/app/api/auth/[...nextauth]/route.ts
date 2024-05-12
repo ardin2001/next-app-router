@@ -28,18 +28,18 @@ const authOptions:NextAuthOptions  = {
           password: string;
         };
 
-        const response = await fetch(`${process.env.HOSTNAME_P1}/api/auth/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        })
+        // const response = await fetch(`${process.env.HOSTNAME_P1}/api/auth/login`, {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({ email, password }),
+        // })
 
-        const {status,data} = await response.json()
-        if(status){
-          return data[0]
-        }
+        // const {status,data} = await response.json()
+        // if(status){
+        //   return data[0]
+        // }
         return null;
       },
     }),

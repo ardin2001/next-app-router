@@ -34,7 +34,7 @@ export async function GetById(document: string, id: string) {
 }
 
 export async function PostData(document: string, addData: any) {
-  if (typeof addData == "string") {
+  if (typeof(addData) == "string") {
     addData = JSON.parse(addData);
   }
 

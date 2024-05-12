@@ -1,5 +1,5 @@
 import { NextResponse,NextRequest } from "next/server";
-import { GetAll,GetById } from "@/app/lib/firebase/FetchData";
+import { GetAll,GetById } from "@/app/lib/firebase/FetchProduct";
 
 export async function GET(req:NextRequest) {
   const id = req.nextUrl.searchParams.get('id')

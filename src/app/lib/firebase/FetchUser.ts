@@ -4,35 +4,13 @@ import {
   where,
   getDocs,
   getFirestore,
-  doc,
-  getDoc,
   addDoc,
 } from "firebase/firestore";
 import App from "./init";
 
 const db = getFirestore(App);
 
-export async function GetAll(document: string) {
-  const q = query(collection(db, document));
-  const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((doc) => {
-    return { id: doc.id, ...doc.data() };
-  });
-}
-
-export async function GetById(document: string, id: string) {
-  const docRef = doc(db, document, id);
-  const docSnap = await getDoc(docRef);
-  let result = {};
-  if (docSnap.exists()) {
-    result = { id: docSnap.id, ...docSnap.data() };
-  } else {
-    result = {};
-  }
-  return result;
-}
-
-export async function PostData(document: string, addData: any) {
+export async function Register(document: string, addData: any) {
   if (typeof(addData) == "string") {
     addData = JSON.parse(addData);
   }
@@ -56,13 +34,12 @@ export async function PostData(document: string, addData: any) {
 
   if (data.length == 0) {
     const docRef = await addDoc(collection(db, document), addData);
-    addData.password = "********";
     return { status: true, data: { id: docRef.id, ...addData } };
   }
   return { status: false, data: null };
 }
 
-export async function GetByAtribute(document:string,user:any) {
+export async function Login(document:string,user:any) {
 
   const q = query(
     collection(db, document),

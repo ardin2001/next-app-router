@@ -1,16 +1,16 @@
 import { NextRequest,NextResponse } from "next/server";
-import { GetByAtribute } from "@/app/lib/firebase/FetchData";
+import { Login } from "@/app/lib/firebase/FetchUser";
 import * as argon2 from "argon2";
 
 export async function POST(req:NextRequest){
     const inputUser = await req.json()
-    const response:any = await GetByAtribute("users",inputUser);
+    const response:any = await Login("users",inputUser);
     if(!response.status){
         return NextResponse.json({status:false,message:"Invalid Email",data:response.data})        
     }
     const hash = response?.data[0]?.password == inputUser.password
     if(hash){
-        return NextResponse.json({status:true,message:"Login Success",data:response.data})        
+        return NextResponse.json({status:true,message:"Login Success",data:{...response.data[0],password:"*****"}})        
     }
     return NextResponse.json({status:false,message:"Invalid Password",data:null})
 }

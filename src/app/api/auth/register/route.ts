@@ -1,12 +1,12 @@
 import { NextRequest,NextResponse } from "next/server";
-import { PostData } from "@/app/lib/firebase/FetchData";
+import { Register } from "@/app/lib/firebase/FetchUser";
 
 export async function POST(req:NextRequest){
     const inputUser = await req.json()
     inputUser.verified = false
-    const response = await PostData("users",inputUser);
+    const response = await Register("users",inputUser);
     if(response.status){
-        return NextResponse.json({status:true,message:"Register Success",data:response.data})        
+        return NextResponse.json({status:true,message:"Register Success",data:{...response.data[0],password:"*****"}})        
     }
-    return NextResponse.json({status:false,message:"Register Failed",data:inputUser,typeof:typeof inputUser})
+    return NextResponse.json({status:false,message:"Register Failed",data:inputUser})
 }

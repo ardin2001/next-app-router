@@ -40,7 +40,14 @@ const authOptions:NextAuthOptions  = {
         // if(status){
         //   return data[0]
         // }
-        return null;
+        // return null;
+        return{
+          id: "1",
+          name: "John Doe",
+          email: "johndoe@gmail.com",
+          role: "admin",
+          provider: "credentials",
+        }
       },
     }),
   ],

@@ -3,7 +3,7 @@ import { GetByAtribute } from "@/app/lib/firebase/FetchData";
 import * as argon2 from "argon2";
 
 export async function POST(req:NextRequest){
-    const inputUser = await req.json()
+    // const inputUser = await req.json()
     // const response:any = await GetByAtribute("users",inputUser);
     // if(!response.status){
     //     return NextResponse.json({status:false,message:"Invalid Email",data:response.data})        

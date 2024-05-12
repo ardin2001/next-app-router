@@ -1,5 +1,5 @@
 import { NextResponse,NextRequest } from "next/server";
-import { GetAll,GetBy } from "@/app/lib/firebase/FetchData";
+import { GetAll,GetById } from "@/app/lib/firebase/FetchData";
 const products = [
   {
     id: 1,
@@ -38,7 +38,7 @@ export async function GET(req:NextRequest) {
   const id = req.nextUrl.searchParams.get('id')
   let data:any
   if(id){
-    data = await GetBy('products',id)
+    data = await GetById('products',id)
   }else{
     data = await GetAll('products')
   }

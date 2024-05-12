@@ -11,7 +11,7 @@ export default function Login() {
     const message = (statusCode: boolean, data: string) => {
         if (statusCode) {
             toast.success(data, {
-                position: "top-right",
+                position: "bottom-right",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -22,7 +22,7 @@ export default function Login() {
             })
         }else{
             toast.error(data, {
-                position: "top-right",
+                position: "bottom-right",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,

@@ -1,5 +1,5 @@
 import { NextRequest,NextResponse } from "next/server";
-import { GetByAtribute } from "@/app/lib/firebase/FetchData";
+// import { GetByAtribute } from "@/app/lib/firebase/FetchData";
 import * as argon2 from "argon2";
 
 export async function POST(req:NextRequest){

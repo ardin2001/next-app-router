@@ -8,5 +8,5 @@ export async function POST(req:NextRequest){
     // if(response.status){
     //     return NextResponse.json({status:true,message:"Register Success",data:response.data})        
     // }
-    return NextResponse.json({status:false,message:"Register Failed",data:inputUser})
+    return NextResponse.json({status:false,message:"Register Failed",data:inputUser,typeof:typeof(inputUser)})
 }

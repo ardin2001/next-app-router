@@ -33,19 +33,13 @@ export async function GetById(document: string, id: string) {
   return result;
 }
 
-export async function PostData(document: string, addData: any) {
-  if (typeof(addData) == "string") {
-    addData = JSON.parse(addData);
+export async function GetByAtribute(document:string,user:any) {
+  if (typeof(user) == "string") {
+    user = JSON.parse(user);
   }
-
-  let condition: any = {};
-  if (document == "users") {
-    condition.email = addData.email;
-  }
-
   const q = query(
     collection(db, document),
-    where("email", "==", addData.email)
+    where("email", "==", user.email)
   );
   const querySnapshot = await getDocs(q);
   const data: any = querySnapshot.docs.map((doc) => {
@@ -56,15 +50,7 @@ export async function PostData(document: string, addData: any) {
   });
 
   if (data.length == 0) {
-    if (document == "users" && addData.verified == false) {
-      const hash = await argon2.hash(addData.password);
-      addData.password = hash;
-    } else {
-      addData.verified = true;
-    }
-    const docRef = await addDoc(collection(db, document), addData);
-    addData.password = "********";
-    return { status: true, data: { id: docRef.id, ...addData } };
+    return { status: false, data: null };
   }
-  return { status: false, data: null };
+  return { status: true, data };
 }

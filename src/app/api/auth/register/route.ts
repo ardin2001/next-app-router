@@ -1,5 +1,5 @@
 import { NextRequest,NextResponse } from "next/server";
-import { PostData } from "@/app/lib/firebase/FetchData";
+// import { PostData } from "@/app/lib/firebase/FetchData";
 
 export async function POST(req:NextRequest){
     const inputUser = await req.json()

@@ -48,7 +48,7 @@ export default function Login() {
         const json = await response.json()
 
         if (json.status) {
-            message(true, "Login success")
+            message(true, "Register success")
             setTimeout(() => {
                 router.push('/auth/login')
             }, 1000);

@@ -38,7 +38,7 @@ const authOptions:NextAuthOptions  = {
 
         const {status,data} = await response.json()
         if(status){
-          return data[0]
+          return data
         }
         return null;
       },

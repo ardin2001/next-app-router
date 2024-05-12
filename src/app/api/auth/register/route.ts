@@ -6,7 +6,7 @@ export async function POST(req:NextRequest){
     inputUser.verified = false
     const response = await Register("users",inputUser);
     if(response.status){
-        return NextResponse.json({status:true,message:"Register Success",data:{...response.data[0],password:"*****"}})        
+        return NextResponse.json({status:true,message:"Register Success",data:{...response.data,password:"*****"}})        
     }
     return NextResponse.json({status:false,message:"Register Failed",data:inputUser})
 }

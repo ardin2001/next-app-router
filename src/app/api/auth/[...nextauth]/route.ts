@@ -27,13 +27,18 @@ const authOptions:NextAuthOptions  = {
           email: string;
           password: string;
         };
-        if (email == "johndoe@gmail.com" && password == "123") {
-          return {
-            id: "1",
-            name: "John Doe",
-            email: "johndoe@gmail.com",
-            role: "admin",
-          };
+
+        const response = await fetch(`${process.env.HOSTNAME_P1}/api/auth/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        })
+
+        const {status,data} = await response.json()
+        if(status){
+          return data[0]
         }
         return null;
       },

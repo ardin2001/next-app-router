@@ -7,7 +7,6 @@ import { useState } from 'react';
 export default function Login() {
     const router = useRouter();
     const [loading,setLoading] = useState(true)
-    // const [message,setMesssage] = useState('')
     const message = (statusCode: boolean, data: string) => {
         if (statusCode) {
             toast.success(data, {

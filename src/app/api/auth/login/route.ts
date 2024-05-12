@@ -8,9 +8,8 @@ export async function POST(req:NextRequest){
     if(!response.status){
         return NextResponse.json({status:false,message:"Invalid Email",data:response.data})        
     }
-
-    // const hash = await argon2.verify(response?.data[0]?.password, inputUser.password);
-    if(true){
+    const hash = response?.data[0]?.password == inputUser.password
+    if(hash){
         return NextResponse.json({status:true,message:"Login Success",data:response.data})        
     }
     return NextResponse.json({status:false,message:"Invalid Password",data:null})

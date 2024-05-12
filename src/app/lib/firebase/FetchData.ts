@@ -9,7 +9,6 @@ import {
   addDoc,
 } from "firebase/firestore";
 import App from "./init";
-import * as argon2 from "argon2";
 
 const db = getFirestore(App);
 
@@ -33,10 +32,38 @@ export async function GetById(document: string, id: string) {
   return result;
 }
 
-export async function GetByAtribute(document:string,user:any) {
-  if (typeof(user) == "string") {
-    user = JSON.parse(user);
+export async function PostData(document: string, addData: any) {
+  if (typeof(addData) == "string") {
+    addData = JSON.parse(addData);
   }
+
+  let condition: any = {};
+  if (document == "users") {
+    condition.email = addData.email;
+  }
+
+  const q = query(
+    collection(db, document),
+    where("email", "==", addData.email)
+  );
+  const querySnapshot = await getDocs(q);
+  const data: any = querySnapshot.docs.map((doc) => {
+    return {
+      id: doc.id,
+      ...doc.data(),
+    };
+  });
+
+  if (data.length == 0) {
+    const docRef = await addDoc(collection(db, document), addData);
+    addData.password = "********";
+    return { status: true, data: { id: docRef.id, ...addData } };
+  }
+  return { status: false, data: null };
+}
+
+export async function GetByAtribute(document:string,user:any) {
+
   const q = query(
     collection(db, document),
     where("email", "==", user.email)

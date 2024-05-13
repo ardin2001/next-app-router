@@ -6,18 +6,18 @@ import { MutableRefObject } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 const Setting = () => {
-    const {data,status}:any = useSession()
+    // const {data,status}:any = useSession()
     const router = useRouter()
     const countRef = useRef<HTMLDivElement>(null) as MutableRefObject<HTMLDivElement>;
-    useEffect(() =>{
-        if(status == 'unauthenticated'){
-            router.push('/')
-        }
-        if(data != undefined && data.user.role !== 'admin'){
-            router.push('/')
-        }
-        countRef.current.style.backgroundColor = 'blue';
-    },[status])
+    // useEffect(() =>{
+    //     if(status == 'unauthenticated'){
+    //         router.push('/')
+    //     }
+    //     if(data != undefined && data.user.role !== 'admin'){
+    //         router.push('/')
+    //     }
+    //     countRef.current.style.backgroundColor = 'blue';
+    // },[status])
     
     return (
         <div>

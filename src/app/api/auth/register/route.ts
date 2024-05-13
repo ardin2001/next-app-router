@@ -4,6 +4,7 @@ import { Register } from "@/app/lib/firebase/FetchUser";
 export async function POST(req:NextRequest){
     const inputUser = await req.json()
     inputUser.verified = false
+    inputUser.role = "user"
     const response = await Register("users",inputUser);
     if(response.status){
         return NextResponse.json({status:true,message:"Register Success",data:{...response.data,password:"*****"}})        

@@ -9,7 +9,7 @@ export default function Login() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [loading,setLoading] = useState(true)
-    const callBack = searchParams.get('callbackUrl') || 'http://localhost:3000'
+    // const callBack = searchParams.get('callbackUrl') || 'http://localhost:3000'
     const message = (statusCode: boolean, data: string) => {
         if (statusCode) {
             toast.success(data, {

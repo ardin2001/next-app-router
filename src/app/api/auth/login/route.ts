@@ -1,6 +1,5 @@
 import { NextRequest,NextResponse } from "next/server";
 import { Login } from "@/app/lib/firebase/FetchUser";
-import * as argon2 from "argon2";
 
 export async function POST(req:NextRequest){
     const inputUser = await req.json()

@@ -1,45 +1,33 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-import type { NextFetchEvent,  } from 'next/server'
+import withAuth from "./app/middlewares/withAuth";
+import { getToken } from "next-auth/jwt";
+import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 
-// This function can be marked `async` if using `await` inside
-export function middleware_documentation(request: NextRequest) {
-  // Clone the request headers and set a new header `x-hello-from-middleware1`
-  const requestHeaders = new Headers(request.headers)
-  requestHeaders.set('test1', 'test')
- 
-  // You can also set request headers in NextResponse.rewrite
-  const response = NextResponse.next({
-    request: {
-      // New request headers
-      headers: requestHeaders,
-    },
-  })
- 
-  // Set a new response header `x-hello-from-middleware2`
-  response.headers.set('x-hello-from-middleware2', 'hello')
-  return response
+const urlAdmin = ["/products"];
+const urlAuth = ["/auth/login", "/auth/register"];
+
+export async function middleware(req: NextRequest) {
+  const token = await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
+
+  if (!token) {
+    const url = new URL("/auth/login", req.url);
+    url.searchParams.set("callbackUrl", encodeURI(req.url));
+    return NextResponse.redirect(url);
+  }
+
+  if (token) {
+    if (urlAuth.includes(req.nextUrl.pathname)) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+    if (token.role !== "admin" && urlAdmin.includes(req.nextUrl.pathname)) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+  }
+  return NextResponse.next();
 }
 
-export function middleware1(request: NextRequest) {
-  // You can also set request headers in NextResponse.rewrite
-  const response = NextResponse.next()
- 
-  // Set a new response header `x-hello-from-middleware2`
-  response.headers.set('x-test', 'hello world')
-  return response
-}
-
-export function middleware(req: NextRequest, event: NextFetchEvent) {
-  // event.waitUntil(
-  //   fetch(`${process.env.HOSTNAME_P1}/api/products`, {
-  //     method: 'GET',
-  //   }).then((res) => console.log('response :',res)),
-  // )
- 
-  return NextResponse.next()
-}
-// See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/products"],
+  matcher: ["/products/:path*",'/'],
 };

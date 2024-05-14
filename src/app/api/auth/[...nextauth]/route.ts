@@ -1,6 +1,8 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth from "next-auth/next";
 import { NextAuthOptions } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import { Register } from "@/app/lib/firebase/FetchUser";
 
 const authOptions:NextAuthOptions  = {
   session: {
@@ -43,6 +45,10 @@ const authOptions:NextAuthOptions  = {
         return null;
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+    })
   ],
   callbacks: {
     async jwt({ token, user, account, profile }: any) {
@@ -60,6 +66,18 @@ const authOptions:NextAuthOptions  = {
       }
       if(account != undefined && 'provider' in account){
         token.provider = account.provider
+      }
+      if(account && account.provider == "google"){
+        const response = await Register("users", {
+          email: token.email,
+          verified: true,
+          role: "user",
+        })
+        if(response.status){
+          token.id = response.data.id,
+          token.role = response.data.role
+          // token.verified = response.data.verified # kalau mau pakai verified ya sessionya harus ditambah juga
+        }
       }
       
       return token;

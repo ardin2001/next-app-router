@@ -4,9 +4,12 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
+// import { useSearchParams } from "next/navigation";
 export default function Login() {
     const router = useRouter();
+    // const searchParams = useSearchParams();
     const [loading,setLoading] = useState(true)
+    // const callBack = searchParams.get('callbackUrl') || 'http://localhost:3000'
     const message = (statusCode: boolean, data: string) => {
         if (statusCode) {
             toast.success(data, {
@@ -61,6 +64,7 @@ export default function Login() {
                 <input type="password" id="password" />
                 <button type="submit" className="bg-green-500 py-1 text-white">{loading ? 'Login' : 'Loading...'}</button>
             </form>
+            <p className="text-center font-semibold text-white text-lg w-1/3 bg-red-500 m-auto py-3 cursor-pointer" onClick={() => signIn("google", { callbackUrl: 'http://localhost:3000',redirect: false })}>Login With Google</p>
             <ToastContainer />
         </div>
     );

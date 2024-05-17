@@ -15,10 +15,10 @@ export default async function Products() {
     const products = await fetchData()
 
     return (
-        <div className='grid grid-cols-5 gap-5 grid-flow-row w-11/12 mx-auto justify-between mt-5'>
+        <div className='grid lg:grid-cols-5 gap-5 grid-flow-row w-11/12 mx-auto justify-between mt-5'>
             {products.map((product: any) => (
                 <Link href={`${process.env.HOSTNAME_P1}/products/loading/detail/`+product.id} key={product.id} className=' p-2 bg-slate-400 rounded-md'>
-                    <Image src={product.image} alt="" width={800} height={800} />
+                    <Image src={product.image} alt="" width={800} height={800} loading="lazy" />
                     <p>{product.name}</p>
                     <p>{product.category}</p>
                     <p>{product.price}</p>

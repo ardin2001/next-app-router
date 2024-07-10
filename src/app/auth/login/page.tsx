@@ -5,11 +5,13 @@ import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import { useSearchParams } from "next/navigation";
-export default function Login() {
+import { Suspense } from 'react'
+
+function Login() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [loading,setLoading] = useState(true)
-    const callBack = searchParams.get('callbackUrl') || 'http://localhost:3000'
+    const callBack:any = searchParams.get('callbackUrl') || process.env.HOSTNAME_P1
     const message = (statusCode: boolean, data: string) => {
         if (statusCode) {
             toast.success(data, {
@@ -68,4 +70,13 @@ export default function Login() {
             <ToastContainer />
         </div>
     );
+}
+
+export default function WrapperLogin() {
+    return (
+        // You could have a loading skeleton as the `fallback` too
+        <Suspense>
+            <Login />
+        </Suspense>
+    )
 }

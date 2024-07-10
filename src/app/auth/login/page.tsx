@@ -4,12 +4,14 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
-// import { useSearchParams } from "next/navigation";
-export default function Login() {
+import { useSearchParams } from "next/navigation";
+import { Suspense } from 'react'
+
+function Login() {
     const router = useRouter();
-    // const searchParams = useSearchParams();
+    const searchParams = useSearchParams();
     const [loading,setLoading] = useState(true)
-    // const callBack = searchParams.get('callbackUrl') || 'http://localhost:3000'
+    const callBack:any = searchParams.get('callbackUrl') || process.env.HOSTNAME_P1
     const message = (statusCode: boolean, data: string) => {
         if (statusCode) {
             toast.success(data, {
@@ -38,7 +40,7 @@ export default function Login() {
 
     const HandlerLogin = async (event: any) => {
         event.preventDefault();
-
+        setLoading(prev => !prev)
         const response: any = await signIn("credentials", {
             email: event.target.email.value,
             password: event.target.password.value,
@@ -48,11 +50,11 @@ export default function Login() {
 
         if (response.ok) {
             message(true, "Login success")
-            router.push('/products')
+            router.push(callBack)
         } else {
             message(false, "Wrong email or password")
         }
-
+        setLoading(prev => !prev)
     };
     return (
         <div className="my-5">
@@ -64,8 +66,17 @@ export default function Login() {
                 <input type="password" id="password" />
                 <button type="submit" className="bg-green-500 py-1 text-white">{loading ? 'Login' : 'Loading...'}</button>
             </form>
-            <p className="text-center font-semibold text-white text-lg w-1/3 bg-red-500 m-auto py-3 cursor-pointer" onClick={() => signIn("google", { callbackUrl: 'http://localhost:3000',redirect: false })}>Login With Google</p>
+            <p className="text-center font-semibold text-white text-lg w-1/3 bg-red-500 m-auto py-3 cursor-pointer" onClick={() => signIn("google", { callbackUrl: callBack,redirect: false })}>Login With Google</p>
             <ToastContainer />
         </div>
     );
+}
+
+export default function WrapperLogin() {
+    return (
+        // You could have a loading skeleton as the `fallback` too
+        <Suspense>
+            <Login />
+        </Suspense>
+    )
 }

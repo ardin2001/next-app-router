@@ -29,5 +29,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/products/:path*",'/'],
+  matcher: ["/products/:path*",'/setting/profile'],
 };

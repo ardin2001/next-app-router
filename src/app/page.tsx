@@ -21,7 +21,6 @@ export async function generateMetadata(
 
   // fetch data
   const product = await fetch(`https://next-app-router-jet.vercel.app/api/products?id=${id}`).then((res) => res.json())
-  console.log(product.data.image)
 
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || []

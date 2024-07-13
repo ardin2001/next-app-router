@@ -14,7 +14,7 @@ export default function GlobalError({
     <html>
       <body>
         <h2>Something went wrong in global error!</h2>
-        <button onClick={() => reset()}>Try again</button>
+        <button className="bg-red-500 px-10 py-0.5 text-white font-semibold" onClick={() => reset()}>Try again</button>
       </body>
     </html>
   )

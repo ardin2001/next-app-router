@@ -46,6 +46,7 @@
 
             // Atur timeout baru untuk menentukan akhir dari scroll
             isScrolling = setTimeout(function() {
+                console.log('End of scroll');
                 handleScrollEnd(); // Memperbarui status ketika scroll berhenti
             }, 200); // Durasi timeout (ms) untuk menganggap scroll telah berhenti
         });

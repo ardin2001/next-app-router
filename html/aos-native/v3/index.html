@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header></header>
+    <div class="container">
+      <div class="transform"></div>
+      <div class="transform2"></div>
+      <div class="transform3"></div>
+      <div class="transform4"></div>
+    </div>
+    <div class="height"></div>
+    <div class="discount">
+      <p>99%</p>
+    </div>
+    <div class="card"></div>
+    <div class="card2"></div>
+    <script>
+      const card = document.querySelector(".card");
+      const card2 = document.querySelector(".card2");
+      const observer = new IntersectionObserver(
+        (entries, unObserver) => {
+          entries.forEach((entry) => {
+            console.log("entry", entry);
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = 1;
+              unObserver.unobserve(entry.target);
+            }
+            // else{
+            //     entry.target.style.opacity = 0;
+            // }
+          });
+        },
+        {
+          threshold: 1,
+        }
+      );
+      observer.observe(card);
+
+      document.addEventListener("scroll", () => {
+        const header = document.querySelector("header");
+        if (window.scrollY > 1) {
+          header.style.borderBottomColor = "red";
+          header.style.borderBottomWidth = "5px";
+          header.style.borderBottomStyle = "solid";
+        } else {
+          header.style.border = "none";
+        }
+        //   console.log("scroll", window.scrollY)
+        //   console.log("scroll2:", document.documentElement.scrollTop)
+      });
+
+      const observer2 = new IntersectionObserver(
+        (entries, unObserver) => {
+          entries.forEach((entry) => {
+            console.log("entry", entry);
+            if (entry.isIntersecting) {
+              entry.target.style.transform = "scale(4)";
+              entry.target.style.backgroundColor = "red";
+              unObserver.unobserve(entry.target);
+            }
+            // else{
+            //     entry.target.style.opacity = 0;
+            // }
+          });
+        },
+        {
+          threshold: 1,
+        }
+      );
+      observer2.observe(card2);
+
+      document.addEventListener("scroll", () => {
+        const discount = document.querySelector(".discount");
+        if (window.scrollY > 5) {
+          discount.style.display = "none";
+        } else {
+          discount.style.display = "flex";
+        }
+      });
+      
+      const transform4 = document.querySelector(".transform4");
+      transform4.addEventListener("click", () => {
+        transform4.style.transform = "rotate(90deg)";
+        transform4.style.backgroundColor = "red";
+      })
+    </script>
+  </body>
+</html>

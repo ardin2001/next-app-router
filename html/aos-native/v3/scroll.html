@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detect Scroll Activity</title>
+    <style>
+        body {
+            height: 2000px; /* Membuat halaman cukup panjang untuk menggulir */
+            font-family: Arial, sans-serif;
+        }
+        #scrollStatus {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="scrollStatus">Scroll: Inactive</div>
+
+    <script>
+        let isScrolling; // Variabel untuk memeriksa status scroll
+
+        function handleScrollStart() {
+            const scrollStatusElement = document.getElementById('scrollStatus');
+            scrollStatusElement.textContent = 'Scroll: Active';
+        }
+
+        function handleScrollEnd() {
+            const scrollStatusElement = document.getElementById('scrollStatus');
+            scrollStatusElement.textContent = 'Scroll: Inactive';
+        }
+
+        window.addEventListener('scroll', function() {
+            handleScrollStart(); // Memperbarui status ketika scroll terjadi
+
+            // Clear timeout sebelumnya
+            window.clearTimeout(isScrolling);
+
+            // Atur timeout baru untuk menentukan akhir dari scroll
+            isScrolling = setTimeout(function() {
+                handleScrollEnd(); // Memperbarui status ketika scroll berhenti
+            }, 200); // Durasi timeout (ms) untuk menganggap scroll telah berhenti
+        });
+    </script>
+
+</body>
+</html>

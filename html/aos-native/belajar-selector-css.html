@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      p {
+        background-color: aqua;
+      }
+      p.private {
+        background-color: red;
+      }
+      .common {
+        background-color: yellow;
+      }
+      h3,
+      h4,
+      h5 {
+        background-color: green;
+        color: white;
+      }
+      /* .item{
+            background-color: rgb(225, 0, 255);
+            font-size: 20px;
+            color: rgb(42, 5, 252);
+        } */
+      .items .item {
+        background-color: rgb(225, 0, 255);
+        font-size: 20px;
+        color: rgb(42, 5, 252);
+      }
+      .container {
+        margin-top: 4px;
+      }
+      .parent {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .parent > .child {
+        background-color: lightblue;
+      }
+      .box + .highlight {
+        background-color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+    <p class="private">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    </p>
+    <h2 class="private">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    </h2>
+    <p class="common">common 1</p>
+    <p class="common">common 2</p>
+    <div class="h5">
+      <h3>3</h3>
+      <h4>4</h4>
+      <h5>5</h5>
+    </div>
+    <div class="items">
+      <div class="item">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+      <div class="item">4</div>
+      <div class="item">5</div>
+    </div>
+    <div class="items">
+      <div class="container">
+        <div class="item">6</div>
+        <div class="item">7</div>
+        <div class="item">8</div>
+        <div class="item">9</div>
+        <div class="item">10</div>
+      </div>
+    </div>
+
+    <div class="parent">
+      <div class="child">Child 1</div>
+      <div class="child">Child 2</div>
+      <div class="nested">
+        <div class="child">Nested Child 3</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="highlight">Highlighted top</div>
+      <div class="box">Box 1</div>
+      <div class="box">Box 2</div>
+      <div class="highlight">Highlighted Box</div>
+      <div class="box">Box 3</div>
+    </div>
+
+    <div class="item">item self</div>
+    <div class="items item">items item</div>
+  </body>
+</html>
